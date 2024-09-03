@@ -12,9 +12,9 @@ const CategoryNames = () => {
 
   return (
     <div className='border-b-2 border-main font-secondry text-gray py-4'>
-    <div className={`${isChecked5 ? 'text-dark' : 'text-gray'} hover:text-dark transition-all duration-300 px-5 pb-3`}>
+    <div className={`${isChecked5 ? 'text-dark' : 'text-gray'} hover:text-dark transition-all duration-300 px-4 pb-3`}>
         <label
-            className="flex items-center justify-between custom-checkbox pr-2"
+            className="flex items-center justify-between custom-checkbox"
         >
             <div className="text-[19px]">T-Shitrs</div>
             <input
@@ -28,9 +28,9 @@ const CategoryNames = () => {
         </label>
     </div>
 
-    <div className={`${isChecked6 ? 'text-dark' : 'text-gray'} hover:text-dark transition-all duration-300 px-5 pb-3`}>
+    <div className={`${isChecked6 ? 'text-dark' : 'text-gray'} hover:text-dark transition-all duration-300 px-4 pb-3`}>
         <label
-            className="flex items-center justify-between custom-checkbox pr-2"
+            className="flex items-center justify-between custom-checkbox"
         >
             <div className="text-[19px]">Shorts</div>
             <input
@@ -44,9 +44,9 @@ const CategoryNames = () => {
         </label>
     </div>
 
-    <div className={`${isChecked7 ? 'text-dark' : 'text-gray'} hover:text-dark transition-all duration-300 px-5 pb-3`}>
+    <div className={`${isChecked7 ? 'text-dark' : 'text-gray'} hover:text-dark transition-all duration-300 px-4 pb-3`}>
         <label
-            className="flex items-center justify-between custom-checkbox pr-2"
+            className="flex items-center justify-between custom-checkbox"
         >
             <div className="text-[19px]">Shirts</div>
             <input
@@ -61,9 +61,9 @@ const CategoryNames = () => {
     </div>
 
 
-    <div className={`${isChecked8 ? 'text-dark' : 'text-gray'} hover:text-dark transition-all duration-300 px-5 pb-3`}>
+    <div className={`${isChecked8 ? 'text-dark' : 'text-gray'} hover:text-dark transition-all duration-300 px-4 pb-3`}>
         <label
-            className="flex items-center justify-between custom-checkbox pr-2"
+            className="flex items-center justify-between custom-checkbox"
         >
             <div className="text-[19px]">Hoodie</div>
             <input
@@ -77,9 +77,9 @@ const CategoryNames = () => {
         </label>
     </div>
 
-    <div className={`${isChecked9 ? 'text-dark' : 'text-gray'} hover:text-dark transition-all duration-300 px-5`}>
+    <div className={`${isChecked9 ? 'text-dark' : 'text-gray'} hover:text-dark transition-all duration-300 px-4`}>
         <label
-            className="flex items-center justify-between custom-checkbox pr-2"
+            className="flex items-center justify-between custom-checkbox"
         >
             <div className="text-[19px]">Jeans</div>
             <input

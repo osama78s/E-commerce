@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { IoMdArrowDropup } from "react-icons/io";
+import { IoIosArrowUp } from "react-icons/io";
 
 const FixedButtons = () => {
     
@@ -22,7 +22,9 @@ const FixedButtons = () => {
     },[])
 
   return (
-    <IoMdArrowDropup onClick={handleClick} className={`${ scroll ? 'bottom-[40px]' : 'bottom-[-100%]' } fixed right-[50px] bg-blue text-white w-[32px] h-[32px] rounded-md hover:bg-activeDark cursor-pointer transition-all duration-300`}></IoMdArrowDropup>
+    <div className="container py-[25px]">
+      <IoIosArrowUp onClick={handleClick} className={`${ scroll ? 'bottom-[40px]' : 'bottom-[-100%]' } fixed right-[40px] bg-blue text-white w-[32px] shadow-main h-[32px] rounded-md hover:bg-blue2 cursor-pointer transition-all duration-300`}></IoIosArrowUp>
+    </div>
   )
 }
 

@@ -7,7 +7,7 @@ import './SearchBar.css';
 
 const SearchBar = () => {
   return (
-    <div className='flex items-center justify-between gap-[50px] mt-[30px] font-secondry'>
+    <div className='flex items-center justify-between gap-[50px] mt-[20px] font-secondry container'>
         <div className="location flex items-center justify-between bg-offWhite rounded-md h-[55px] px-[18px] w-[270px] relative">
             <div className="flex items-center gap-2">
                 <img src={locationImage}/>

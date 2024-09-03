@@ -10,7 +10,7 @@ import logo from '../../assets/logo.png';
 
 const Navbar = () => {
   return (
-    <nav className='flex items-center justify-between font-primary'>
+    <nav className='flex items-center justify-between font-primary container'>
       <Link to={'/'}>
         <img src={logo}/>
       </Link>
@@ -23,7 +23,7 @@ const Navbar = () => {
           Home
         </NavLink>
         <NavLink
-          to={'/categories'}
+          to={'/home'}
           className={({ isActive }) => `flex hover:text-blue items-center gap-2 transition-all duration-300 ${isActive ? 'active-link' : ''}`}
         >
           Categories

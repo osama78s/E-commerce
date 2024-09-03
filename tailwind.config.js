@@ -36,6 +36,8 @@ export default {
         dark: '#23262A',
         activeDark: '#082634',
         overlay: '#000000f5',
+        blue2: '#196383',
+        red: '#DB4444'
       },
       borderColor: {
         main: '#F7F7F7'
