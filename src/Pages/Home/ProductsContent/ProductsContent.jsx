@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Rating } from "flowbite-react";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../../../Redux/Reducers/Products';
-import animation from '../../../../public/animation/Animation - 1723806227222.json';
+import animation from '../../../../public/animation/Animation - 1725478898809.json';
 import Lottie from 'lottie-react';
 import { CiHeart } from "react-icons/ci";
 import { Link } from 'react-router-dom';
@@ -18,7 +18,7 @@ const ProductsContent = () => {
     return (
         <>
             {loading && (
-                <div className='fixed left-0 top-0 z-[100] w-full h-full bg-overlay flex items-center justify-center'>
+                <div className='fixed left-0 top-0 z-[100] w-full h-full bg-white flex items-center justify-center'>
                     <Lottie className='w-[500px]' animationData={animation} loop={true} />
                 </div>
             )}

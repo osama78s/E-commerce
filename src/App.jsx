@@ -13,7 +13,7 @@ import Login from './Pages/Login/Login';
 import Register from './Pages/Register/Register';
 import SetPassword from './Pages/SetPassword/SetPassword';
 import ForgotPassword from './Pages/ForgotPassword/ForgotPassword';
-import ResetPassword from './Pages/ResetPassword/ResetPassword';
+import ResetCode from './Pages/ResetCode/ResetCode';
 
 const App = () => {
   const location = useLocation();
@@ -21,7 +21,7 @@ const App = () => {
   location.pathname === '/register' ||
   location.pathname === '/setpassword' || 
   location.pathname === '/forgotpassword' || 
-  location.pathname === '/resetpassword';
+  location.pathname === '/resetcode';
   
   return (
     <>
@@ -41,8 +41,7 @@ const App = () => {
           <Route path='/register' element={<Register/>}/>
           <Route path='/setpassword' element={<SetPassword/>}/>
           <Route path='/forgotpassword' element={<ForgotPassword/>}/>
-          <Route path='/resetpassword' element={<ResetPassword/>}/>
-
+          <Route path='/resetcode' element={<ResetCode/>}/>
 
         </Routes>
       </div>

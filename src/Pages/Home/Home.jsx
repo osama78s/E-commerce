@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, Outlet } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { IoIosArrowForward } from "react-icons/io";
 import Aside from './Aside/Aside';
 import ProductsContent from './ProductsContent/ProductsContent';
