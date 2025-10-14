@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import {
   Package,
   ShoppingCart,
@@ -14,21 +14,40 @@ import {
 import { useSidebar } from "../../context/AdminSidebarContext"
 import { useTranslation } from "react-i18next"
 import { useState, useEffect } from "react"
+import axios from "axios"
+import useSetToken from "../../store/useSetToken"
+import Cookies from "universal-cookie"
 
 export function AdminSidebar() {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const { i18n } = useTranslation()
   const location = useLocation()
   const pathname = location.pathname
   const { isOpen, isMobile } = useSidebar()
   const [searchQuery, setSearchQuery] = useState("")
   const [reget, setReget] = useState(false)
+  const { accessToken } = useSetToken();
+  const cookie = new Cookies();
+  const navigate = useNavigate();
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng)
     localStorage.setItem("lang", lng)
 
   }
+
+  const handleLogout = async () => {
+    try {
+      await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/logout`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+      cookie.remove('refresh_token');
+      useSetToken.setState({ accessToken: '' });
+      navigate('/login');
+    } catch (error) {
+      console.log('Error during logout:', error);
+    }
+  };
 
   useEffect(() => {
     const storedLang = localStorage.getItem("lang")
@@ -79,11 +98,10 @@ export function AdminSidebar() {
               <Link
                 key={to}
                 to={to}
-                className={`flex items-center justify-between rounded-md px-3 py-2 text-sm font-medium ${
-                  pathname === to
+                className={`flex items-center justify-between rounded-md px-3 py-2 text-sm font-medium ${pathname === to
                     ? "bg-blue-500 text-white"
                     : "text-gray-300 hover:bg-slate-800 hover:text-white"
-                }`}
+                  }`}
               >
                 <div className="flex items-center gap-3">
                   {icon}
@@ -117,13 +135,12 @@ export function AdminSidebar() {
       </div>
 
       {/* Sidebar Footer */}
-      <div className="border-t border-gray-700 p-4">
+      <div onClick={handleLogout} className="border-t border-gray-700 p-4 text-white">
         <button className="w-full flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-red-500 hover:bg-red-500 hover:text-white transition-all">
           <LogOut className="h-4 w-4" />
-          <span>Logout</span>
+          <span >Logout</span>
         </button>
       </div>
     </div>
   )
 }
-  

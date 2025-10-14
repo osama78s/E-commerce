@@ -5,7 +5,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "./SwiperMainHome.css";
-
 import img1 from "../../../assets/Pics.png";
 import img2 from "../../../assets/Still life of makeup products.png";
 import img3 from "../../../assets/dad (3).png";

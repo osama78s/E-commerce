@@ -119,7 +119,7 @@ function Dashboard() {
                       onClick={() => setUserMenuOpen(!userMenuOpen)}
                       className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 overflow-hidden"
                     >
-                      <img src="/placeholder-user.jpg" alt="Admin User" className="h-full w-full object-cover" />
+                      <img src="/default.jpg" alt="Admin User" className="h-full w-full object-cover" />
                     </button>
 
                     {userMenuOpen && (

@@ -125,7 +125,7 @@ const Navbar = () => {
         </ul>
 
         {/* Right Side Actions */}
-        <div className="flex items-center lg:gap-3">
+        <div className="flex items-center gap-3 md:gap-0 lg:gap-3">
           {/* Language Switcher */}
           <button
             onClick={() => {
@@ -229,73 +229,99 @@ const Navbar = () => {
                 )}
               </div>
             )}
-            </div>
-
-            {/* Logout */}
-            {accessToken && (
-              <button
-                onClick={handleLogout}
-                className="hidden md:block ml-2 px-4 py-2 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 border border-gray-200 hover:border-red-200 rounded-md transition-all duration-300"
-              >
-                {t('logout')}
-              </button>
-            )}
-
-            {/* Dashboard */}
-            {user?.role === 'admin' && (
-              <Link to="/admin" className="hidden md:block ml-2 px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 border border-gray-200 hover:border-blue-200 rounded-md transition-all duration-300">
-                {t('dashboard')}
-              </Link>
-            )}
-
-            {/* Mobile Menu Button */}
-            <button
-              className="md:hidden p-2 rounded-md border border-gray-200 hover:bg-gray-100"
-              onClick={() => setIsMenuOpen(true)}
-            >
-              <Menu className="w-6 h-6 text-gray-700" />
-            </button>
           </div>
-        </div>
 
-        {/* Mobile Drawer */}
-        {isMenuOpen && (
-          <div className="md:hidden fixed inset-0 z-50 bg-black bg-opacity-50" onClick={() => setIsMenuOpen(false)}>
-            <div
-              className={`fixed top-0 ${i18n.language === 'ar' ? 'left-0' : 'right-0'} w-64 h-full bg-white shadow-md flex flex-col gap-6`}
-              onClick={(e) => e.stopPropagation()}
-            >
+          {/* Dropdown Menu for User */}
+          {accessToken && (
+            <div className="relative hidden md:block">
               <button
-                onClick={() => setIsMenuOpen(false)}
-                className="absolute top-4 right-4 md:right-auto md:left-4 bg-[#f9f9f9] p-2 rounded-full shadow hover:bg-red-50 transition-all duration-300"
+                onClick={() => setIsMenuOpen((prev) => !prev)}
+                className="ml-2 px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 border border-gray-200 rounded-md transition-all duration-300"
               >
-                <IoClose className="text-2xl text-gray-700 hover:text-red-600 transition-colors duration-300" />
+                {t('account')}
               </button>
-              <ul className='bg-[#f9f9f9] p-6 flex flex-col gap-6'>
-                <NavLink to="/" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-blue-600">
-                  {t('home')}
-                </NavLink>
-                <NavLink to="/categories" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-blue-600">
-                  {t('categories')}
-                </NavLink>
-                <NavLink to="/about" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-blue-600">
-                  {t('about')}
-                </NavLink>
-                <NavLink to="/contact" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-blue-600">
-                  {t('contact_us')}
-                </NavLink>
-                {accessToken && (
+
+              {isMenuOpen && (
+                <div
+                  className={`absolute mt-2 ${i18n.language === 'ar' ? 'left-0' : 'right-0'} w-40 bg-white border border-gray-200 rounded-md shadow-lg z-50`}
+                >
+                  {user?.role === 'admin' && (
+                    <Link
+                      to="/admin"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {t('dashboard')}
+                    </Link>
+                  )}
                   <button
-                    onClick={handleLogout}
-                    className="mt-auto w-full px-4 py-2 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 border border-gray-200 rounded-md transition-all duration-300"
+                    onClick={() => {
+                      handleLogout();
+                      setIsMenuOpen(false);
+                    }}
+                    className="block text-left px-4 py-2 text-sm text-gray-700 hover:text-red-600 hover:bg-red-50"
                   >
                     {t('logout')}
                   </button>
-                )}
-              </ul>
+                </div>
+              )}
             </div>
+          )}
+
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden p-2 rounded-md border border-gray-200 hover:bg-gray-100"
+            onClick={() => setIsMenuOpen(true)}
+          >
+            <Menu className="w-6 h-6 text-gray-700" />
+          </button>
+        </div>
+
+      </div>
+
+      {/* Mobile Drawer */}
+      {isMenuOpen && (
+        <div className="md:hidden fixed inset-0 z-50 bg-black bg-opacity-50" onClick={() => setIsMenuOpen(false)}>
+          <div
+            className={`fixed top-0 ${i18n.language === 'ar' ? 'left-0' : 'right-0'} w-64 h-full bg-white shadow-md flex flex-col gap-6`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setIsMenuOpen(false)}
+              className="absolute top-4 right-4 md:right-auto md:left-4 bg-[#f9f9f9] p-2 rounded-full shadow hover:bg-red-50 transition-all duration-300"
+            >
+              <IoClose className="text-2xl text-gray-700 hover:text-red-600 transition-colors duration-300" />
+            </button>
+            <ul className='bg-[#f9f9f9] p-6 flex flex-col gap-6'>
+              <NavLink to="/" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-blue-600">
+                {t('home')}
+              </NavLink>
+              <NavLink to="/categories" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-blue-600">
+                {t('categories')}
+              </NavLink>
+              <NavLink to="/about" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-blue-600">
+                {t('about')}
+              </NavLink>
+              <NavLink to="/contact" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-blue-600">
+                {t('contact_us')}
+              </NavLink>
+              { user?.role === 'admin' && ( 
+                <NavLink to="/admin" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-blue-600">
+                  {t('dashboard')}
+                </NavLink>
+              )}
+              {accessToken && (
+                <button
+                  onClick={handleLogout}
+                  className="mt-auto w-full px-4 py-2 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 border border-gray-200 rounded-md transition-all duration-300"
+                >
+                  {t('logout')}
+                </button>
+              )}
+            </ul>
           </div>
-        )}
+        </div>
+      )}
     </nav>
   );
 };

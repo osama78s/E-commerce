@@ -5,6 +5,7 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
+      "no_offers_available": "No offers available at the moment.",
       "create_account": "create account!",
       "new_here": "New here?",
       "welcome_to_luxira": "Hi, Welcome to Luxira",
@@ -154,6 +155,8 @@ const resources = {
   },
   ar: {
     translation: {
+      "account": "الحساب",
+      "no_offers_available": "لا توجد عروض متاحة في الوقت الحالي.",
       "create_account": "انشاء حساب!",
       "new_here": "مستخدم جديد؟",
       "welcome_to_luxira": "مرحبا بكم في لوكسيرا",
