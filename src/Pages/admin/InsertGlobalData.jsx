@@ -43,7 +43,6 @@ export default function InsertGlobalData() {
         })
         setBrands(res.data.data.brands)
         setGetBrands("done")
-        console.log("brands",res.data)
       } catch (error) {
         console.log(error)
       }
@@ -66,7 +65,6 @@ export default function InsertGlobalData() {
           signal: controller.signal
         })
         setGetSizes("done")
-        console.log(res.data.data.sizes)
         setSizes(res.data.data.sizes)
       } catch (error) {
         console.log(error)
@@ -91,7 +89,6 @@ export default function InsertGlobalData() {
           signal: controller.signal
         })
         setGetColors("done")
-        console.log(res.data)
         setColors(res.data.data.colors)
       } catch (error) {
         console.log(error)
@@ -110,7 +107,6 @@ export default function InsertGlobalData() {
             'Authorization': `Bearer ${accessToken}`
           }
         })
-        console.log(res.data)
         setCategories(res.data.data.categories)
       } catch (error) {
         console.log(error)

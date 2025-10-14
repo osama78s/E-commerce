@@ -45,7 +45,7 @@ export function AdminSidebar() {
       {/* Sidebar Header */}
       <div className="flex flex-col">
         <div className="flex h-16 items-center px-4">
-          <Link to="/admin" className="flex items-center gap-2 font-semibold text-white">
+          <Link to="/" className="flex items-center gap-2 font-semibold text-white">
             <Package className="h-6 w-6 text-blue-500" />
             <span className="text-xl">Luxira</span>
           </Link>
@@ -72,12 +72,9 @@ export function AdminSidebar() {
             {[
               { to: "/admin", icon: <Home className="h-4 w-4" />, label: t("dashboard") },
               { to: "/admin/products", icon: <Package className="h-4 w-4" />, label: t("products") },
-              // { to: "/admin/customers", icon: <Users className="h-4 w-4" />, label: t("customers") },
               { to: "/admin/g-data", icon: <Users className="h-4 w-4" />, label: t("insert_global_data") },
               { to: "/admin/offers", icon: <Percent className="h-4 w-4" />, label: t("offers") },
               { to: "/admin/coupons", icon: <TicketPercent className="h-4 w-4" />, label: t("coupons") },
-              // { to: "/admin/analytics", icon: <BarChart3 className="h-4 w-4" />, label: "Analytics" },
-              // { to: "/admin/payments", icon: <CreditCard className="h-4 w-4" />, label: "Payments" },
             ].map(({ to, icon, label, badge }) => (
               <Link
                 key={to}

@@ -17,12 +17,24 @@
     justify-content: center;
   }
   
+  /* Use the project blue for checked state */
   .custom-checkbox input[type="checkbox"]:checked + .checkmark {
-    background-color: #115573;
+    background-color: #2563eb; /* Tailwind blue-600 */
+  }
+
+  /* Make the check icon white when checked */
+  .custom-checkbox input[type="checkbox"]:checked + .checkmark svg {
+    color: #ffffff;
+    fill: #ffffff;
   }
   
   .custom-checkbox {
     display: flex;
     align-items: center;
     gap: 10px;
+  }
+
+  /* Optional: when selected, make the label text white to match design */
+  .custom-checkbox input[type="checkbox"]:checked ~ .label-text {
+    color: #1f2937; /* dark text for contrast if needed */
   }

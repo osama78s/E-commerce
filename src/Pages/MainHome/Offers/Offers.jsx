@@ -24,18 +24,57 @@ const Offers = () => {
 
     const deleteWishList = async (productId) => {
         try {
-
             const url = `${import.meta.env.VITE_API_URL}/api/whishlistes/delete/${productId}`;
-            const res = await axios.delete(url, {
+            await axios.delete(url, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
-                        "Accept-Language": i18n.language
+                    "Accept-Language": i18n.language
                 }
-            })
-            setRefetch(!refetch)
-            console.log(res.data)
+            })            
+            // Update local state to remove from wishlist
+            setProducts(prev => 
+                prev.map(product => 
+                    product.product.id === productId 
+                        ? { 
+                            ...product, 
+                            product: {
+                                ...product.product,
+                                whishlistes: product.product.whishlistes?.filter(item => 
+                                    String(item.user_id) !== String(user.id)
+                                ) || [] 
+                            }
+                        }
+                        : product
+                )
+            )
         } catch (error) {
-            console.log("delete errror", error)
+            console.log("delete error", error)
+        }
+    }
+
+    const addToWishlist = async (productId) => {
+        try {
+            await toggleProductInWishlist(productId, accessToken)
+            
+            // Update local state to add to wishlist
+            setProducts(prev => 
+                prev.map(product => 
+                    product.product.id === productId 
+                        ? { 
+                            ...product, 
+                            product: {
+                                ...product.product,
+                                whishlistes: [...(product.product.whishlistes || []), { 
+                                    product_id: String(productId), 
+                                    user_id: String(user.id) 
+                                }] 
+                            }
+                        }
+                        : product
+                )
+            )
+        } catch (error) {
+            console.log("add to wishlist error", error)
         }
     }
 
@@ -53,7 +92,6 @@ const Offers = () => {
                     },
                 });
 
-                console.log("::", res.data);
                 setProducts(res.data.data.offers);
             } catch (error) {
                 console.log("Failed to fetch products:", error);
@@ -90,29 +128,23 @@ const Offers = () => {
                             products?.map((product) => {
                                 const wishlistIds = product.product.whishlistes?.map(item => item.product_id) || [];
                                 const userIds = product.product.whishlistes?.map(item => item.user_id) || [];
+                                const isInWishlist = wishlistIds.includes(String(product.product.id)) && userIds.includes(String(user.id));
 
                                 return (
                                     <div key={product.id} className="p-4 shadow-main rounded-md border-[1px] border-slate-200">
-                                        <div
-                                            onClick={async () => {
-                                                if (wishlistIds.includes(String(product.product.id)) && userIds.includes(String(user.id))) {
-                                                    deleteWishList(product.product.id)
-                                                } else {
-                                                    await toggleProductInWishlist(product.product.id, accessToken)
-                                                    setRefetch(!refetch)
-                                                }
-
-                                            }}
-                                            className="flex items-center justify-center relative"
-                                        >
+                                        <div className="flex items-center justify-center relative">
                                             <CiHeart
+                                                onClick={async (e) => {
+                                                    e.stopPropagation();
+                                                    if (isInWishlist) {
+                                                        await deleteWishList(product.product.id)
+                                                    } else {
+                                                        await addToWishlist(product.product.id)
+                                                    }
+                                                }}
                                                 style={{
-                                                    backgroundColor:
-                                                        wishlistIds.includes(String(product.product.id)) && userIds.includes(String(user.id))
-                                                            ? "red" : "white",
-                                                    color:
-                                                        wishlistIds.includes(String(product.product.id)) && userIds.includes(String(user.id))
-                                                            ? "white" : "#3b82f6"
+                                                    backgroundColor: isInWishlist ? "#2830d1" : "white",
+                                                    color: isInWishlist ? "white" : "#3b82f6"
                                                 }}
                                                 className='absolute right-[20px] top-[10px] rounded-full text-[30px] p-1 cursor-pointer transition-all duration-200'
                                             />
@@ -126,7 +158,7 @@ const Offers = () => {
                                                 onClick={() => navigate(`/products/${product.id}`)}
                                                 className='font-semibold text-[17px] cursor-pointer'
                                             >{product?.product?.translatable_name}</span>
-                                            <div className='flex items-center gap-2'>
+                                            <div className='flex items-center gap-2 flex-wrap'>
                                                 <div className="flex items-center gap-4">
                                                     <span className='font-bold text-red'>${product.product.price}</span>
                                                     {product.new_price && (
@@ -147,10 +179,21 @@ const Offers = () => {
                                                 <div className='w-4 h-4 rounded-full bg-gray border-[1px] border-slate-300'></div>
                                             </div>
                                         </div>
-                                        <button onClick={() => {
-                                            setCurrentProduct(product.product)
-                                            setShowAddToCartBox(true)
-                                        }} className='bg-blue-600 w-full mt-3 rounded-md text-white py-[8px] font-secondry hover:bg-blue-700 transition-all duration-300 flex items-center gap-3 justify-center'><span>{t("add_to_cart")}</span> <ShoppingBagIcon size={18} /></button>
+                                        <button 
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                if (!accessToken) {
+                                                    navigate("/login");
+                                                    return;
+                                                }
+                                                setCurrentProduct(product.product);
+                                                setShowAddToCartBox(true);
+                                            }}
+                                            className='bg-blue-600 w-full mt-3 rounded-md text-white py-[8px] font-secondry hover:bg-blue-700 transition-all duration-300 flex items-center gap-3 justify-center'
+                                        >
+                                            <span>{t("add_to_cart")}</span> 
+                                            <ShoppingBagIcon size={18} />
+                                        </button>
                                     </div>
                                 )
 

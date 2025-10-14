@@ -29,7 +29,6 @@ const OfferDetails = () => {
         });
         setProduct(res.data.data.offer);
         setCurrentImage(res.data.data.offer?.product?.images[0]?.image_url)
-        console.log("offfer", res.data);
       } catch (error) {
         console.log("Failed to fetch products:", error);
       } finally {

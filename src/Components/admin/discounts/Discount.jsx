@@ -81,13 +81,11 @@ export default function Discount() {
                 discount_percentage: Number.parseFloat(formData.discount_percentage),
             }
 
-            const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/admin/offers/store`, {...requestData, code, product_id: selectedProduct.id}, {
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/admin/offers/store`, {...requestData, code, product_id: selectedProduct.id}, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
             })
-            console.log(res.data)
-            // setResponse(res.data)
         } catch (error) {
             console.error("Error sending request:", error)
         } finally {

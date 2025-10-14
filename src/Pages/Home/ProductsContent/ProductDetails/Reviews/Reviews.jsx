@@ -5,7 +5,7 @@ import { Calendar, MessageCircle, Send, Star, Trash2 } from 'lucide-react';
 import { ToastContainer, toast } from 'react-toastify';
 import useSetToken from '../../../../../store/useSetToken';
 import LoadingSpinner from '../../../../../Components/LoadingSpinner';
-
+import defaultImage from '../../../../../../public/default.jpg';
 import Cookies from 'universal-cookie';
 import { useTranslation } from 'react-i18next';
 
@@ -78,7 +78,7 @@ const Reviews = ({ similarProducts = [], product_id, reviews, setRefreshReviews 
         try {
             setIsLoadingWhileDelete(true)
             const url = `${import.meta.env.VITE_API_URL}/api/review/delete/${reviewID}`;
-            const res = await axios.delete(
+            await axios.delete(
                 url,
                 {
                     headers: {
@@ -86,7 +86,6 @@ const Reviews = ({ similarProducts = [], product_id, reviews, setRefreshReviews 
                     },
                 }
             );
-            console.log(res.data)
             setRefreshReviews(prev => !prev)
         } catch (error) {
             console.log("thhthhththth", error)
@@ -169,7 +168,7 @@ const Reviews = ({ similarProducts = [], product_id, reviews, setRefreshReviews 
                                 <div className="flex items-center gap-4">
                                     <div className="relative">
                                         <img
-                                            src={review?.user?.image_url}
+                                            src={defaultImage}
                                             alt="Reviewer"
                                             className='w-14 h-14 rounded-full object-cover ring-4 ring-blue-50'
                                         />

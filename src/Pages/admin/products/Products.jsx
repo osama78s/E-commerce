@@ -22,7 +22,6 @@ export default function Products() {
                         'Accept-Language': i18n.language
                     },
                 })
-                console.log("prs", res.data)
                 setProducts(res.data.data.products)
             } catch (error) {
                 console.log("Failed to fetch subcategories:", error)
@@ -42,13 +41,12 @@ export default function Products() {
     const handleDelete = async (id) => {
         try {
             setDeleteLoading(true)
-            const res = await axios.delete(`${import.meta.env.VITE_API_URL}/api/admin/products/delete/${id}`, {
+            await axios.delete(`${import.meta.env.VITE_API_URL}/api/admin/products/delete/${id}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                     'Accept-Language': i18n.language
                 },
             })
-            console.log("prs", res.data)
             const newPrs = products.filter((pr) => pr.id !== id)
             setProducts(newPrs)
         } catch (error) {

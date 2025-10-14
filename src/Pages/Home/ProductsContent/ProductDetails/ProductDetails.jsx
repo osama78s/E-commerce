@@ -22,6 +22,14 @@ const ProductDetails = () => {
   const [addProductLoading, setAddProductLoading] = useState(false)
   const { refreshCart } = insertProductsToCart()
 
+  const isSelectionComplete = () => {
+    // if product has colors, color must be selected
+    if (product?.colors && product.colors.length > 0 && !selectedColor) return false
+    // if product has sizes, size must be selected
+    if (product?.sizes && product.sizes.length > 0 && !selectedSize) return false
+    return true
+  }
+
   useEffect(() => {
     const getProducts = async () => {
       try {
@@ -35,7 +43,6 @@ const ProductDetails = () => {
         setProduct(res.data.data.product);
         setCurrentImage(res.data.data.product.images[0].image_url)
         setSimilarProducts(res.data.data.similar_products)
-        console.log("s", res.data);
       } catch (error) {
         console.log("Failed to fetch products:", error);
       } finally {
@@ -49,6 +56,9 @@ const ProductDetails = () => {
 
 
   const addToCart = async () => {
+    // guard: don't run if already loading or selections incomplete
+    if (addProductLoading || !isSelectionComplete()) return
+
     try {
       setAddProductLoading(true)
       const url = `${import.meta.env.VITE_API_URL}/api/cart/store`;
@@ -64,12 +74,11 @@ const ProductDetails = () => {
       });
 
       toast.success("Product added to cart successfully")
-      console.log(res.data)
       refreshCart()
     } catch (error) {
       console.log("Failed to fetch cart:", error);
     } finally {
-      setIsLoading(false);
+      // keep isLoading for initial product fetch untouched here
       setAddProductLoading(false)
     }
   }
@@ -197,10 +206,11 @@ const ProductDetails = () => {
               </button>
             </div>
             <button
-              disabled={addProductLoading}
-              style={{ opacity: addProductLoading ? "0.7" : "1" }}
+              disabled={addProductLoading || !isSelectionComplete()}
+              aria-disabled={addProductLoading || !isSelectionComplete()}
               onClick={addToCart}
-              className='bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-8 py-3 font-semibold transition-all duration-300 w-full sm:flex-1 text-base sm:text-lg'>
+              style={{ opacity: addProductLoading || !isSelectionComplete() ? "0.7" : "1" }}
+              className={`rounded-lg px-8 py-3 font-semibold transition-all duration-300 w-full sm:flex-1 text-base sm:text-lg text-white ${addProductLoading || !isSelectionComplete() ? 'bg-blue-600/60 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}>
               {t("add_to_cart")}
             </button>
           </div>

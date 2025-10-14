@@ -26,7 +26,6 @@ function ForgotPassword() {
     }
     setLoading(true);
     try {
-      console.log(formData)
       const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/verifyForgetPassword`, { email: formData });
       setMessage(res.data.message)
       setLoading(false);

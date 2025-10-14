@@ -29,7 +29,7 @@ const CategoryNames = ({ subcategories, cId }) => {
                     className={`${subcategory.id === cId || subcategory.id === subcategoryID ? 'text-dark' : 'text-gray'} hover:text-dark transition-all duration-300 px-4 pb-3`}
                 >
                     <label className="flex items-center justify-between custom-checkbox">
-                        <div className="text-[19px]">
+                        <div className="text-[19px] label-text">
                             {i18n.language === "en" ? subcategory.name.en : subcategory.name.ar}
                         </div>
                         <input
@@ -38,7 +38,7 @@ const CategoryNames = ({ subcategories, cId }) => {
                             onChange={() => handleToggle(subcategory.id)}
                         />
                         <span className="checkmark">
-                            {subcategory.id === subcategoryID || subcategory.id === cId && <FaCheck color="gray" size={11} />}
+                            {(subcategory.id === subcategoryID || subcategory.id === cId) && <FaCheck size={11} />}
                         </span>
                     </label>
                 </div>

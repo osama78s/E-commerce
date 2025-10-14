@@ -9,8 +9,6 @@ export const addProductToCartService = async (data, accessToken) => {
                 Authorization: `Bearer ${accessToken}`
             },
         })
-
-        console.log(res.data)
         return res.data
     } catch (error) {
         throw {"add to cart error":error}

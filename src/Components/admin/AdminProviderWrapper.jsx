@@ -17,7 +17,6 @@ const AdminProviderWrapper = ({ children }) => {
           },
           signal: controller.signal
         })
-        console.log("all", res.data.data)
         setData(res.data.data)
       } catch (error) {
         console.log(error)

@@ -35,7 +35,6 @@ const SubCategoriesTable = ({}) => {
                 },
                 signal: controller.signal
             })
-            console.log(res.data)
             setSubcategories(res.data.data.subcategories || [])
         } catch (error) {
             console.log("Failed to fetch subcategories:", error)

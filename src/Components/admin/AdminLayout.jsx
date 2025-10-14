@@ -4,7 +4,7 @@ import { SidebarProvider } from '../../context/AdminSidebarContext'
 
 
 const AdminLayout = () => {
-
+    
     return (
         <>
             <SidebarProvider>

@@ -31,7 +31,6 @@ const ProductsContent = () => {
     const [showAddToCartBox, setShowAddToCartBox] = useState(false)
 
     useEffect(() => {
-        console.log(user, "user in products content")
         const getProducts = async () => {
             setIsLoading(true)
             try {
@@ -63,12 +62,11 @@ const ProductsContent = () => {
         try {
 
             const url = `${import.meta.env.VITE_API_URL}/api/whishlistes/delete/${productId}`;
-            const r = await axios.delete(url, {
+            await axios.delete(url, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 }
             })
-            console.log(r.data)
             setRefetch(!refetch)
         } catch (error) {
             console.log("delete errror", error)
@@ -98,20 +96,18 @@ const ProductsContent = () => {
                                 const userIds = product.whishlistes?.map(item => item.user_id) || [];
 
                                 return (
-                                    <div key={product.id} className="p-4 shadow-main rounded-md border-[1px] border-slate-200">
-                                        <div
-                                            onClick={async () => {
-                                                if (wishlistIds.includes(String(product.id)) && userIds.includes(String(user.id))) {
-                                                    deleteWishList(product.id)
-                                                } else {
-                                                    toggleProductInWishlist(product.id, accessToken)
-                                                    setRefetch(!refetch)
-                                                }
-
-                                            }}
-                                            className="flex items-center justify-center relative"
-                                        >
+                                    <div key={product.id} className="p-4 shadow-main rounded-md border-[1px] border-slate-200 cursor-pointer" onClick={() => navigate(`/products/${product.id}`)}>
+                                        <div className="flex items-center justify-center relative">
                                             <CiHeart
+                                                onClick={async (e) => {
+                                                    e.stopPropagation();
+                                                    if (wishlistIds.includes(String(product.id)) && userIds.includes(String(user.id))) {
+                                                        await deleteWishList(product.id)
+                                                    } else {
+                                                        await toggleProductInWishlist(product.id, accessToken)
+                                                        setRefetch(!refetch)
+                                                    }
+                                                }}
                                                 style={{
                                                     backgroundColor:
                                                         wishlistIds.includes(String(product.id)) && userIds.includes(String(user.id))
@@ -151,7 +147,8 @@ const ProductsContent = () => {
                                             </div>
                                         </div>
                                         <button
-                                            onClick={() => {
+                                            onClick={(e) => {
+                                                e.stopPropagation();
                                                 if (!accessToken) {
                                                     navigate("/login")
                                                     return

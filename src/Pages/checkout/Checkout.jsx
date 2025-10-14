@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next"
 import { toast } from "react-toastify"
 import { loadStripe } from "@stripe/stripe-js";
 import { useNavigate } from "react-router-dom"
+
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
 export default function Checkout() {
@@ -73,7 +74,6 @@ export default function Checkout() {
 
       // PayPal checkout
       if (data.approval_url) {
-        console.log(data)
         window.location.href = data.approval_url;
         toast.success(data.message)
         return;
@@ -103,10 +103,7 @@ export default function Checkout() {
             },
           }
         );
-
         setData(res.data.data.shippings)
-        console.log("ship", res.data.data)
-
       } catch (error) {
         const err = error.response.data.message || error.response.data.error || "An unexpected error"
         toast.error(err)
@@ -128,7 +125,6 @@ export default function Checkout() {
             "Accept-Language": i18n.language
           },
         });
-        console.log("cart", res.data)
         const cartProducts = res.data.data.cart_products
         setOrderItems(cartProducts)
         cartProducts.forEach(element => {
@@ -136,7 +132,6 @@ export default function Checkout() {
         });
 
         setTotal(ttl)
-        console.log("fsakfaksfk", res.data)
       } catch (error) {
         const err = error.response.data.message || error.response.data.error || "An unexpected error"
         toast.error(err)
@@ -367,7 +362,7 @@ export default function Checkout() {
 
             {/* Right Column - Order Summary */}
             <div>
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky top-8">
+              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky top-12">
                 <div className="flex items-center gap-2 mb-6">
                   <svg className="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path

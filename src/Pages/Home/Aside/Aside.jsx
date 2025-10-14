@@ -28,7 +28,6 @@ const Aside = () => {
                         Authorization: `Bearer ${accessToken}`
                     },
                 })
-                console.log("allls", res.data.data)
                 setSubcategories(res.data.data.subcategories)
                 setSizes(res.data.data.sizes)
                 setColors(res.data.data.colors)

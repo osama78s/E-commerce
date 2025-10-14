@@ -13,7 +13,6 @@ export function SidebarProvider({ children }) {
     const checkScreenSize = () => {
       setIsMobile(window.innerWidth < 1024)
       if (window.innerWidth < 1024) {
-        console.log("brbr")
         setIsOpen(false)
       } else {
         setIsOpen(true)

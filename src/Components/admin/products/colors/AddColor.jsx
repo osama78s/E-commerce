@@ -19,15 +19,13 @@ const AddColor = ({setGetColors}) => {
             setValidationMessage("This field is required")
             return
         }
-        console.log("s=>", accessToken)
         setIsLoading(true)
         try {
-            const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/admin/colors/store`, { name:color_en }, {
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/admin/colors/store`, { name:color_en }, {
                 headers: {
                     'Authorization': `Bearer ${accessToken}`
                 }
             })
-            console.log(res.data)
             toggleRefetch("colors")
             setColor_en("")
             setGetColors("fetching")

@@ -10,36 +10,41 @@ const Footer = () => {
 
     return (
         <div className='bg-blue font-primary mt-16'>
-            <div className='border-b border-gray flex items-center justify-between pb-10 pt-[50px] container'>
-                <div>
+            {/* Top Section */}
+            <div className='border-b border-gray container pb-10 pt-[50px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 text-center lg:text-left'>
+                {/* Logo + Social */}
+                <div className='flex flex-col items-center lg:items-start'>
                     {/* <img src={logo} alt="Logo" /> */}
-                    <div className="flex gap-3 text-white mt-5 justify-center">
-                        <MdFacebook className='text-[23px]' />
-                        <FaInstagram className='text-[23px]' />
-                        <FaXTwitter className='text-[23px]' />
+                    <div className="flex gap-3 text-white mt-5">
+                        <MdFacebook className='text-[23px] cursor-pointer hover:text-gray-300 transition' />
+                        <FaInstagram className='text-[23px] cursor-pointer hover:text-gray-300 transition' />
+                        <FaXTwitter className='text-[23px] cursor-pointer hover:text-gray-300 transition' />
                     </div>
                 </div>
 
+                {/* Customer Services */}
                 <div className='text-white'>
-                    <h1 className='text-[20px]'>{t("footer.customerServices")}</h1>
+                    <h1 className='text-[20px] font-semibold'>{t("footer.customerServices")}</h1>
                     <div className="flex flex-col gap-3 mt-6">
-                        <span className='text-[14px]'>{t("footer.faqs")}</span>
-                        <span className='text-[14px]'>{t("footer.terms")}</span>
-                        <span className='text-[14px]'>{t("footer.privacy")}</span>
+                        <span className='text-[14px] cursor-pointer hover:text-gray-300'>{t("footer.faqs")}</span>
+                        <span className='text-[14px] cursor-pointer hover:text-gray-300'>{t("footer.terms")}</span>
+                        <span className='text-[14px] cursor-pointer hover:text-gray-300'>{t("footer.privacy")}</span>
                     </div>
                 </div>
 
+                {/* Profile */}
                 <div className='text-white'>
-                    <h1 className='text-[20px]'>{t("footer.profile")}</h1>
+                    <h1 className='text-[20px] font-semibold'>{t("footer.profile")}</h1>
                     <div className="flex flex-col gap-3 mt-6">
-                        <span className='text-[14px]'>{t("footer.account")}</span>
-                        <span className='text-[14px]'>{t("footer.wishlist")}</span>
-                        <span className='text-[14px]'>{t("footer.settings")}</span>
+                        <span className='text-[14px] cursor-pointer hover:text-gray-300'>{t("footer.account")}</span>
+                        <span className='text-[14px] cursor-pointer hover:text-gray-300'>{t("footer.wishlist")}</span>
+                        <span className='text-[14px] cursor-pointer hover:text-gray-300'>{t("footer.settings")}</span>
                     </div>
                 </div>
 
+                {/* Contact */}
                 <div className='text-white'>
-                    <h1 className='text-[20px]'>{t("footer.contact")}</h1>
+                    <h1 className='text-[20px] font-semibold'>{t("footer.contact")}</h1>
                     <div className="flex flex-col gap-3 mt-6">
                         <span className='text-[14px]'>{t("footer.phone")}</span>
                         <span className='text-[14px]'>{t("footer.email")}</span>
@@ -48,10 +53,11 @@ const Footer = () => {
                 </div>
             </div>
 
-            <div className="flex items-center justify-center gap-5 text-white p-6">
-                <span>{t("footer.termsOfUse")}</span>
-                <span>{t("footer.privacyPolicy")}</span>
-                <span>{t("footer.rights")}</span>
+            {/* Bottom Section */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-5 text-white p-6 text-sm text-center">
+                <span className="cursor-pointer hover:text-gray-300">{t("footer.termsOfUse")}</span>
+                <span className="cursor-pointer hover:text-gray-300">{t("footer.privacyPolicy")}</span>
+                <span className="cursor-pointer hover:text-gray-300">{t("footer.rights")}</span>
             </div>
         </div>
     );

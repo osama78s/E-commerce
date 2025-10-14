@@ -19,14 +19,26 @@ const AddToCartBox = ({ product = [], setShowAddToCartBox }) => {
     const [quantity, setQuantity] = useState(1)
     const [isLoading, setIsLoading] = useState(false)
 
+    const isSelectionComplete = () => {
+        // if product has colors, color must be selected
+        if (product?.colors && product.colors.length > 0 && !data.color_id) return false
+        // if product has sizes, size must be selected
+        if (product?.sizes && product.sizes.length > 0 && !data.size_id) return false
+        return true
+    }
+
     const handleAddProductToCart = async () => {
+        // guard: don't run if already loading or selections incomplete
+        if (isLoading || !isSelectionComplete()) return
+
         try {
             setIsLoading(true)
             const res = await addProductToCartService({ ...data, quantity, product_id: product.id }, accessToken)
-            console.log("ddgsdojgijdojho", res)
-            addProductToCart(res.data.cart_product)
+            // add the returned cart product to local store and refresh server-side cart
+            if (res?.data?.cart_product) {
+                addProductToCart(res.data.cart_product)
+            }
             refreshCart()
-            addProductToCart()
         } catch (error) {
             console.log(error)
         } finally {
@@ -70,7 +82,7 @@ const AddToCartBox = ({ product = [], setShowAddToCartBox }) => {
                                                     setData({ ...data, size_id: size.id })
                                                 }}
                                                 className='border-2 p-2 px-4 rounded-md cursor-pointer' key={size.id}>
-                                                {size.size.en}
+                                                {size?.size?.en}
                                             </div>
                                         ))
                                     )}
@@ -103,10 +115,14 @@ const AddToCartBox = ({ product = [], setShowAddToCartBox }) => {
                                         className='bg-slate-100 p-3 rounded-md border-2'>-</button>
                                 </div>
                             </div>
+                            {
+                                // compute disabled state based on selections and loading
+                            }
                             <button
-                                style={{ opacity: isLoading ? "0.6" : "1" }}
+                                disabled={isLoading || !isSelectionComplete()}
+                                aria-disabled={isLoading || !isSelectionComplete()}
                                 onClick={handleAddProductToCart}
-                                className='bg-blue-600 w-full mt-3 rounded-md text-white py-[8px] px-3 font-secondry hover:bg-blue-700 transition-all duration-300 flex items-center gap-3 justify-center'>
+                                className={`w-full mt-3 rounded-md text-white py-[8px] px-3 font-secondry transition-all duration-300 flex items-center gap-3 justify-center ${isLoading || !isSelectionComplete() ? 'bg-blue-600/60 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}>
                                 <span>{t("add_to_cart")}</span>
 
                                 <ShoppingBagIcon size={18} />

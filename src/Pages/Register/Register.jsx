@@ -11,7 +11,7 @@ import Loading from '../../Components/loading/Loading';
 import { useTranslation } from 'react-i18next';
 
 const Register = () => {
-    const {t} = useTranslation()
+    const { t } = useTranslation()
     const navigate = useNavigate();
     const { setAccessToken } = useSetToken()
     const cookie = new Cookies();
@@ -111,27 +111,28 @@ const Register = () => {
         setLoading(true);
 
         try {
-            console.log(formData)
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/register`, formData, {
                 headers: {
-                    'Accept-Lanuage': 'ar'
+                    'Accept-Lanuage': 'en'
                 }
             });
-            console.log(res)
-            cookie.set('email', formData.email,);
+            cookie.set('email', formData.email);
             cookie.set('access_token', res.data.data.access_token)
             setAccessToken(res.data.data.access_token)
             setLoading(false);
             navigate('/resetcode', { replace: true });
         } catch (error) {
-            // setErrors(({
-            //     ...errors,
-            //     [e.target.name]: error.response.data.message || error.response.data.errors[e.target.name] || error.response.data.errors.error
-            // }));
-            console.log(error)
+            if (error.response && error.response.data) {
+                const apiErrors = error.response.data.errors || {};
+                setErrors(prev => ({
+                    ...prev,
+                    ...Object.fromEntries(
+                        Object.entries(apiErrors).map(([key, val]) => [key, val[0]])
+                    ),
+                }));
+            }
         } finally {
             setLoading(false);
-
         }
     };
 

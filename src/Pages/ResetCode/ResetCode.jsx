@@ -29,7 +29,7 @@ function ResetCode() {
             [name]: value
         });
 
-        if (value.trim().length === 6) {
+        if (value.trim().length === 5) {
             setShow(false);
         } else {
             setShow(true);
@@ -58,6 +58,7 @@ function ResetCode() {
             setLoading(false);
             navigate('/', { replace: true });
         } catch (error) {
+            console.log(error)
             setLoading(false);
             if (error.response.status === 401) {
                 setErrorCode('This code is wrong');
@@ -91,7 +92,7 @@ function ResetCode() {
 
     return (
         <>
-            <div className='font-primary w-[90%] md:w-2/4'>
+            <div className='font-primary md:w-2/4 w-[90%] mx-auto mt-10'>
                 <Link className='flex items-center gap-1 mt-8 ml-8 text-gray hover:text-dark transition-all duration-300 w-fit' to={-1}>
                     <span className='text-2xl'><IoIosArrowRoundBack /></span>
                     <span className='text-[20px]'> Back</span>

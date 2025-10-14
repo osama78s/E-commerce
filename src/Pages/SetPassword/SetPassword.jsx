@@ -48,7 +48,6 @@ function SetPassword() {
   }
 
   const handleSubmit = async (e) => {
-    console.log(dataFromUrl)
     e.preventDefault();
     let formHasError = false;
 
@@ -85,12 +84,10 @@ function SetPassword() {
     if (formHasError) return;
 
     setLoading(true);
-    console.log("fff",{...formData, ...dataFromUrl})
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/resetPassword`, {...formData, ...dataFromUrl});
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/resetPassword`, {...formData, ...dataFromUrl});
       cookie.remove('userId');
       cookie.remove('token');
-      console.log("ress",res.data)
       setLoading(false);
       navigate('/');
     } catch (error) {

@@ -19,10 +19,6 @@ const AddProductForm = ({ showAddProductBox, setShowAddProductBox }) => {
 
   const fileInputRef = useRef(null)
 
-  useEffect(() => {
-    console.log("formData updated", formData)
-  }, [formData])
-
   const handleChange = (e) => {
     const { id, value, type, files, multiple, selectedOptions } = e.target
 
@@ -72,14 +68,13 @@ const AddProductForm = ({ showAddProductBox, setShowAddProductBox }) => {
     setIsLoading(true)
 
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/admin/products/store`, form, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/admin/products/store`, form, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "multipart/form-data",
         },
       })
       toast("Product added successfully")
-      console.log(res.data)
       resetForm()
     } catch (error) {
       console.log(error)

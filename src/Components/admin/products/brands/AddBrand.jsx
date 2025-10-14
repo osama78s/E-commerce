@@ -34,14 +34,13 @@ const AddBrand = ({ setGetBrands }) => {
         formData.append("image", image)
 
         try {
-            const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/admin/brands/store`, formData, {
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/admin/brands/store`, formData, {
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
                     'Content-Type': 'multipart/form-data'
                 }
             })
 
-            console.log(res.data)
             toggleRefetch("brands")
             setBrand({
                 name_en: "",

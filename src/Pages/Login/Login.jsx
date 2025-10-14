@@ -82,9 +82,6 @@ function Login() {
                 cookie.set('refresh_token', res.data.data.refresh_token)
             }
             setUser(res.data.data.user)
-            console.log("ddd",res.data.data.user)
-
-            console.log(res.data)
             setAccessToken(res.data.data.access_token)
             // dispatch(getToken({ accessToken: res.data.accessToken, userDetails: res.data.user }));
             navigate('/', { replace: true });

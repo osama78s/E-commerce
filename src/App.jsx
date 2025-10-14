@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Route, Routes, useLocation, Navigate } from 'react-router-dom'
 import Home from './Pages/Home/Home'
 import SearchBar from './Components/SearchBar/SearchBar'
 import Navbar from './Components/Navbar/Navbar';
@@ -7,7 +7,6 @@ import FixedButtons from './Components/FixedButtons/FixedButtons';
 import Footer from './Components/Footer/Footer';
 import MainHome from './Pages/MainHome/MainHome';
 import ProductDetails from './Pages/Home/ProductsContent/ProductDetails/ProductDetails';
-import WhishList from './Pages/wishlist/WishList';
 import Login from './Pages/Login/Login';
 import Register from './Pages/Register/Register';
 import SetPassword from './Pages/SetPassword/SetPassword';
@@ -30,11 +29,15 @@ import insertProductsToCart from './store/useCart';
 import OrdersPage from './Pages/orders/Orders';
 import OfferDetails from './Pages/Offers/OfferDetails';
 import Categories from './Pages/categories/Categories';
+import ContactUs from './Pages/Contact/Contact';
+import useSetUser from './store/useSetUser';
+import Wishlists from './Pages/wishlist/WishList';
 
 const App = () => {
   const {cart = []} = insertProductsToCart()
   const location = useLocation();
-  const { accessToken } = useSetToken()
+  const { accessToken } = useSetToken();
+  const { user } = useSetUser()
   const isAuthPage = location.pathname === '/login' ||
     location.pathname === '/register' ||
     location.pathname === '/setpassword' ||
@@ -53,26 +56,31 @@ const App = () => {
         <Routes>
           <Route path='/' element={<MainHome />} />
           <Route path='/categories' element={<Categories />} />
-          <Route path='/wishlist' element={<WhishList />} />
+          <Route path='/wishlist' element={<Wishlists />} />
           <Route path='/products' element={<Home />} />
           <Route path='/products/:id' element={<ProductDetails />} />
           <Route path='/about' element={<About />} />
           <Route path='/offers' element={<Offers />} />
           <Route path="offer/:id" element={<OfferDetails />} />
           <Route path='/orders' element={<OrdersPage />} />
-          <Route path='/checkout' element={cart.length > 0 && <Checkout />} />
+          <Route path='/checkout' element={cart.length > 0 ? <Checkout /> : <Navigate to="/" />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/setpassword' element={<SetPassword />} />
           <Route path='/forgotpassword' element={<ForgotPassword />} />
           <Route path='/resetcode' element={<ResetCode />} />
+          <Route path='/contact' element={<ContactUs />} />
           <Route
             path="/admin"
             element={
               isAccessToken ? (
-                <AdminProviderWrapper>
-                  <AdminLayout />
-                </AdminProviderWrapper>
+                user?.role === 'admin' ? (
+                  <AdminProviderWrapper>
+                    <AdminLayout />
+                  </AdminProviderWrapper>
+                ) : (
+                  <Navigate to="/" />
+                )
               ) : (
                 <LoadingSpinner forRoute={true} w={52} h={52} />
               )

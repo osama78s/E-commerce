@@ -4,9 +4,11 @@ import useSetToken from "../../store/useSetToken"
 import { useTranslation } from "react-i18next"
 import { toast } from "react-toastify"
 import { useSearchParams } from "react-router-dom"
+import insertProductsToCart from "../../store/useCart"
 
 export default function OrdersPage() {
   const { accessToken } = useSetToken()
+  const { addProductsToCart } = insertProductsToCart()
   const { i18n } = useTranslation()
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get("session_id")
@@ -38,7 +40,6 @@ export default function OrdersPage() {
             "Accept-Language": i18n.language,
           },
         })
-        console.log(response.data)
         toast.success(response.data.data.message)
       } catch (error) {
         if(error.status !== 401) {
@@ -48,7 +49,7 @@ export default function OrdersPage() {
     }
 
     paypalRq()
-  }, [token, accessToken,PayerID])
+  }, [token, accessToken, PayerID, i18n.language])
 
   useEffect(() => {
     if (!sessionId) return
@@ -61,7 +62,6 @@ export default function OrdersPage() {
             "Accept-Language": i18n.language,
           },
         })
-        console.log(response.data)
         toast.success(response.data.data.message)
       } catch (error) {
         console.log(error)
@@ -70,9 +70,8 @@ export default function OrdersPage() {
         }
       }
     }
-
     sessionRq()
-  }, [sessionId, accessToken])
+  }, [sessionId, accessToken, i18n.language])
 
   useEffect(() => {
 
@@ -85,7 +84,6 @@ export default function OrdersPage() {
             "Accept-Language": i18n.language,
           },
         })
-        console.log((response.data?.data?.orders || []))
         setOrders(response.data?.data?.orders || [])
       } catch (error) {
         if (error.status !== 401) {
@@ -95,6 +93,10 @@ export default function OrdersPage() {
     }
     getOrders()
   }, [accessToken, i18n.language])
+
+  useEffect(() => {
+    addProductsToCart([])
+  }, [])
 
   const filteredOrders =
     activeTab === "All"

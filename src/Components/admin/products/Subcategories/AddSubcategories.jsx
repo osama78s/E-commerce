@@ -35,14 +35,13 @@ const AddSubcategories = ({ categories, showUpdateButton }) => {
         formData.append('image', image)
 
         try {
-            const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/admin/subcategories/store`, formData, {
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/admin/subcategories/store`, formData, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                     'Content-Type': 'multipart/form-data'
                 }
             })
 
-            console.log(res.data)
             toggleRefetch('subCategories')
             setSubcategory({
                 name_en: '',

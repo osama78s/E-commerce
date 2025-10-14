@@ -1,68 +1,21 @@
 import React from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import 'swiper/css'
-import 'swiper/css/pagination'
-import 'swiper/css/free-mode'
-import './SwiperAbout.css'
-import { FreeMode, Pagination } from 'swiper/modules'
-import img from '../../../assets/Frame 891.png';
 
 const SwiperAbout = () => {
     return (
-        <div>
-            <Swiper
-                breakpoints={{
-                    340: {
-                        slidesPerView: 1,
-                        spaceBetween: 15
-                    },
-                    600: {
-                        slidesPerView: 2,
-                        spaceBetween: 15
-                    },
-                    1024: {
-                        slidesPerView: 3,
-                        spaceBetween: 15
-                    },
-                    1280: {
-                        slidesPerView: 3,
-                        spaceBetween: 15
-                    }
+        <div className="flex justify-center items-center mt-10">
+            <div className="relative w-[300px] rounded-xl shadow-lg overflow-hidden">
+                {/* صورة */}
+                <img
+                    className="w-full h-[380px] object-cover"
+                    src="src/assets/myPhoto.jpg"
+                    alt="Osama Saif"
+                />
 
-                }}
-                freeMode={true}
-                pagination={{
-                    clickable: true
-                }}
-                modules={[FreeMode, Pagination]}
-                className=' mt-[40px] max-w-[90%] pb-[40px]'
-            >
-                    <SwiperSlide>
-                        <div className='p-4 rounded-md'>
-                            <img src={img} alt="Img" />
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <div className='p-4 rounded-md'>
-                            <img src={img} alt="Img" />
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <div className='p-4 rounded-md'>
-                            <img src={img} alt="Img" />
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <div className='p-4 rounded-md'>
-                            <img src={img} alt="Img" />
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <div className='p-4 rounded-md'>
-                            <img src={img} alt="Img" />
-                        </div>
-                    </SwiperSlide>
-            </Swiper>
+            <div className="absolute bottom-0 left-0 w-full px-6 py-3 text-center bg-[#f5f5f5] shadow-lg">
+            <h1 className="text-black text-lg md:text-xl font-semibold">Osama Saif</h1>
+            <p className="text-gray-700 text-sm md:text-base font-medium">Full Stack Developer</p>
+            </div>  
+            </div>
         </div>
     )
 }

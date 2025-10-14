@@ -19,7 +19,6 @@ const AddSizes = ({setGetSizes}) => {
             setValidationMessage("This field is required")
             return
         }
-        console.log("s=>", accessToken)
         setIsLoading(true)
         try {
             await axios.post(`${import.meta.env.VITE_API_URL}/api/admin/sizes/store`, { size_en: size, size_ar: size }, {
