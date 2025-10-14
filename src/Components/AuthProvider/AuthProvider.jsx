@@ -11,17 +11,15 @@ const AuthProvider = ({ children }) => {
   const cookie = new Cookies();
   const { accessToken, setAccessToken } = useSetToken()
   const { setUser } = useSetUser();
-  const isAuthPage = location.pathname === '/login' ||
-    location.pathname === '/register' ||
-    location.pathname === '/setpassword' ||
-    location.pathname === '/forgotpassword' ||
-    location.pathname === '/resetcode';
+  // const isAuthPage =  
+//  location.pathname === '/resetcode';
     
   useEffect(() => {
     const checkAccessToken = async () => {
       const refreshToken = cookie.get('refresh_token');
-      if(!refreshToken && !isAuthPage) navigate("/login")
-      if (!accessToken && !isAuthPage) {
+      // if(!refreshToken) navigate("/login")
+
+      if (!accessToken) {
         if (refreshToken) {
           try {
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/refresh-token`, {
@@ -33,14 +31,12 @@ const AuthProvider = ({ children }) => {
             console.log(error)
             navigate("/login")
           }
-        }else {
-          navigate("/login")
         }
       }
     }
     checkAccessToken()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accessToken, isAuthPage]);
+  }, [accessToken]);
 
   return children;
 }

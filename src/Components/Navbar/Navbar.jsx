@@ -231,6 +231,15 @@ const Navbar = () => {
             )}
           </div>
 
+          { !accessToken && (
+            <NavLink
+              to="/login"
+              className="hidden md:block ml-4 px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 border border-gray-200 rounded-md transition-all duration-300"
+            >
+              {t('login')}
+            </NavLink>
+          ) }
+
           {/* Dropdown Menu for User */}
           {accessToken && (
             <div className="relative hidden md:block">
@@ -310,13 +319,21 @@ const Navbar = () => {
                   {t('dashboard')}
                 </NavLink>
               )}
-              {accessToken && (
+              {accessToken ? (
                 <button
                   onClick={handleLogout}
                   className="mt-auto w-full px-4 py-2 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 border border-gray-200 rounded-md transition-all duration-300"
                 >
                   {t('logout')}
                 </button>
+              ) : (
+                <NavLink
+                  to="/login"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="mt-auto w-full px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 border border-gray-200 rounded-md transition-all duration-300 text-center"
+                >
+                  {t('login')}
+                </NavLink>
               )}
             </ul>
           </div>
