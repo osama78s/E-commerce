@@ -231,14 +231,14 @@ const Navbar = () => {
             )}
           </div>
 
-          { !accessToken && (
+          {!accessToken && (
             <NavLink
               to="/login"
               className="hidden md:block ml-4 px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 border border-gray-200 rounded-md transition-all duration-300"
             >
               {t('login')}
             </NavLink>
-          ) }
+          )}
 
           {/* Dropdown Menu for User */}
           {accessToken && (
@@ -263,6 +263,11 @@ const Navbar = () => {
                       {t('dashboard')}
                     </Link>
                   )}
+                  <Link to={'/orders'}
+                    className="block px-4 py-2 text-sm text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+                  >
+                    {t('orders')}
+                  </Link>
                   <button
                     onClick={() => {
                       handleLogout();
@@ -314,18 +319,28 @@ const Navbar = () => {
               <NavLink to="/contact" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-blue-600">
                 {t('contact_us')}
               </NavLink>
-              { user?.role === 'admin' && ( 
+              {user?.role === 'admin' && (
                 <NavLink to="/admin" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-blue-600">
                   {t('dashboard')}
                 </NavLink>
               )}
               {accessToken ? (
-                <button
-                  onClick={handleLogout}
-                  className="mt-auto w-full px-4 py-2 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 border border-gray-200 rounded-md transition-all duration-300"
-                >
-                  {t('logout')}
-                </button>
+                <>
+                  <NavLink
+                    to="/orders"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="mt-auto w-full px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 border border-gray-200 rounded-md transition-all duration-300 text-center"
+                  >
+                    {t('orders')}
+                  </NavLink>
+
+                  <button
+                    onClick={handleLogout}
+                    className="mt-auto w-full px-4 py-2 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 border border-gray-200 rounded-md transition-all duration-300"
+                  >
+                    {t('logout')}
+                  </button>
+                </>
               ) : (
                 <NavLink
                   to="/login"
